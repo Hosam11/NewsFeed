@@ -5,12 +5,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {sharedStyles} from './SharedStyles';
+import ErrorView from './ErrorView';
 
 const Input: React.FC<{
   placeholder: string;
   errorText?: string;
   keyboardType?: KeyboardTypeOptions;
+  onChange?: (value: string) => void;
 }> = props => {
   return (
     <View style={styles.container}>
@@ -18,16 +19,15 @@ const Input: React.FC<{
         style={styles.input}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
+        onChangeText={props.onChange}
       />
-      {props.errorText && <Text style={sharedStyles.error}>Error</Text>}
+      <ErrorView errorText={props.errorText} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
+  container: {},
   input: {
     borderColor: 'grey',
     padding: 8,

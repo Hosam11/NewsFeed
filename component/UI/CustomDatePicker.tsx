@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, Pressable, StyleSheet, Text, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import language from '../Strings';
 import {formatDate} from '../../Util/utils';
-import {sharedStyles} from './SharedStyles';
+import ErrorView from './ErrorView';
 
 const CustomDatePicker: React.FC<{
   date: Date;
@@ -14,11 +14,11 @@ const CustomDatePicker: React.FC<{
   errorText?: string;
 }> = props => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={props.onDatePress}>
       <Text style={styles.dateText}>
         {`${language.bDate}: ${formatDate(props.date)}`}
       </Text>
-      <Button title="Select brith date" onPress={props.onDatePress} />
+      <ErrorView errorText={props.errorText} />
       <DatePicker
         modal
         open={props.open}
@@ -27,22 +27,18 @@ const CustomDatePicker: React.FC<{
         onConfirm={props.onConfirm}
         onCancel={props.onCancel}
       />
-      {props.errorText && <Text style={sharedStyles.error}>Error</Text>}
-    </View>
+    </Pressable>
   );
 };
 
 export default CustomDatePicker;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-  },
   dateText: {
-    marginBottom: 20,
     fontSize: 18,
     backgroundColor: '#fff',
     padding: 10,
+    color: 'black',
     borderColor: 'grey',
   },
 });

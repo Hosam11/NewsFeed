@@ -1,12 +1,15 @@
 import {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import {sharedStyles} from './SharedStyles';
+import {GenderType} from '../User/UserForm';
+import ErrorView from './ErrorView';
 
 const CustomDropDown: React.FC<{
   itemtOptions: {label: string; value: string}[];
   placeholder: string;
   errorText?: string;
+  gender?: GenderType;
+  onChange: (item: {label: string; value: string}) => void;
 }> = props => {
   return (
     <View>
@@ -16,12 +19,10 @@ const CustomDropDown: React.FC<{
         labelField="label"
         valueField="value"
         placeholder={props.placeholder}
-        // value={gender}
-        onChange={item => {
-          console.log('item.value: ' + item.value);
-        }}
+        value={props.gender}
+        onChange={props.onChange}
       />
-      {props.errorText && <Text style={sharedStyles.error}>Error</Text>}
+      <ErrorView errorText={props.errorText} />
     </View>
   );
 };
@@ -30,11 +31,17 @@ const styles = StyleSheet.create({
   dropdown: {
     height: 50,
     borderColor: 'grey',
-    borderWidth: 0.5,
+    borderWidth: 1.5,
     paddingHorizontal: 8,
-    marginBottom: 20,
     backgroundColor: 'white',
     fontSize: 18,
+    color: 'black',
+  },
+
+  textItem: {
+    color: 'black', // Set your desired text color here
+    fontSize: 18,
+    padding: 16,
   },
 });
 
