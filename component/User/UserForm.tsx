@@ -4,6 +4,8 @@ import language from '../Strings';
 import CustomDropDown from '../UI/CustomDropDown';
 import CustomDatePicker from '../UI/CustomDatePicker';
 import {useState} from 'react';
+import {saveUserInfo, userInfoKey} from '../../Storage';
+import {UserInfo} from '../../models/UserInfo';
 
 export type GenderType = {label: string; value: string} | null;
 
@@ -49,8 +51,9 @@ const UserForm: React.FC = () => {
     gender: {value: null, isValid: false},
     bDate: {value: new Date(), isValid: false},
   });
+
   const {fName, phoneNumber, gender, bDate} = formData;
-  const formValid =
+  const isFormValid =
     fName.isValid && phoneNumber.isValid && gender.isValid && bDate.isValid;
 
   const handleFormData = (
@@ -95,9 +98,18 @@ const UserForm: React.FC = () => {
 
   const sumbitHandler = () => {
     console.log(formData);
+    saveUserInfo(
+      userInfoKey,
+      new UserInfo(
+        formData.fName.value,
+        formData.phoneNumber.value,
+        formData.gender.value?.value ?? '',
+        formData.bDate.value,
+      ),
+    );
   };
 
-  console.log('formValid: ' + formValid);
+  console.log('isFormValid: ' + isFormValid);
   return (
     <View style={styles.form}>
       <Input
@@ -132,7 +144,7 @@ const UserForm: React.FC = () => {
         <Button
           title={language.submit}
           onPress={sumbitHandler}
-          disabled={!formValid}
+          disabled={!isFormValid}
         />
       </View>
     </View>
