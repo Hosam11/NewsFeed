@@ -4,7 +4,7 @@ import language from '../Strings';
 import CustomDropDown from '../UI/CustomDropDown';
 import CustomDatePicker from '../UI/CustomDatePicker';
 import {useState} from 'react';
-import {saveUserInfo, userInfoKey} from '../Storage/Storage';
+import {saveUserInfo} from '../Storage/Storage';
 import {UserInfo} from '../../models/UserInfo';
 import {useNavigation, ParamListBase} from '@react-navigation/native';
 import {navigations} from '../../Util/utils';
@@ -84,7 +84,6 @@ const UserForm: React.FC = () => {
   const sumbitHandler = () => {
     console.log(formData);
     saveUserInfo(
-      userInfoKey,
       new UserInfo(
         formData.fName.value,
         formData.phoneNumber.value,

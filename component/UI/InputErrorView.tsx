@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 
-const InputErrorView: React.FC<{errorText: string}> = props => {
+const InputErrorView: React.FC<{errorText?: string}> = props => {
   return (
     <View style={styles.errorView}>
       {props.errorText && <Text style={styles.error}>{props.errorText}</Text>}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Pressable, StyleSheet, Text, View} from 'react-native';
+import { Pressable, StyleSheet, Text} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import language from '../Strings';
 import {formatDate} from '../../Util/utils';

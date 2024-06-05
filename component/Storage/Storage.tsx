@@ -2,27 +2,31 @@ import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserInfo} from '../../models/UserInfo';
 
-export const userInfoKey = 'userInfoKey';
+const userInfoKey = 'userInfoKey';
 
 const storage = new Storage({
   storageBackend: AsyncStorage,
   defaultExpires: null,
 });
 
-export const saveUserInfo = async (key: string, user: UserInfo) => {
+export const saveUserInfo = async (user: UserInfo) => {
   await storage.save({
-    key,
+    key: userInfoKey,
     data: user,
   });
 };
 
-export const getUserInfo = async (key: string): Promise<UserInfo | boolean> => {
+export const getUserInfo = async (): Promise<UserInfo | boolean> => {
   try {
     const data = await storage.load({
-      key,
+      key: userInfoKey,
     });
-    console.log('userInfo: ' + JSON.stringify(data));
-    return data;
+    return new UserInfo(
+      data.fName,
+      data.phoneNumber,
+      data.gender,
+      new Date(data.bDate),
+    );
   } catch (e) {
     console.log('error getUserInfo: ' + e);
     return false;
