@@ -9,6 +9,8 @@ const language = {
   invalidPhone: 'Please enter a valid phone number',
   invalidGender: 'Please enter a valid gender',
   invalidDate: 'Please enter a valid date',
+  result: 'Result',
+  search:'Search...'
 };
 
 export default language;

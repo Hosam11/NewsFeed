@@ -15,17 +15,16 @@ const ErrorView: React.FC<{errorMessage: string; onPress?: () => void}> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+    padding: 30,
   },
   errorText: {
     color: 'red',
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginHorizontal: 20,
+    paddingVertical: 20,
   },
 });
 

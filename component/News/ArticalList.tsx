@@ -1,5 +1,11 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {fetchNews} from '../Network/http';
 import {Artical} from '../../models/Artical';
 import ArticalItem from './ArticalItem';
@@ -7,10 +13,8 @@ import ErrorView from '../UI/ErrorView';
 import {ArticlesContext} from '../../store/articals-context';
 
 const ArticalList: React.FC = () => {
-  const [error, setError] = useState<string>('');
-
-  // const [articals, setArticals] = useState<Artical[]>([]);
   const articalesContext = useContext(ArticlesContext);
+  const [error, setError] = useState<string>('');
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -36,9 +40,6 @@ const ArticalList: React.FC = () => {
       const initalArticals = await fetchData(page);
       setLoading(false);
       console.log('useEffect called');
-      // setArticals((prevArtical: Artical[]) => {
-      //   return [...prevArtical, ...initalArticals];
-      // });
       articalesContext.updateArticales(initalArticals);
     };
     fetchInitalData();
@@ -54,6 +55,7 @@ const ArticalList: React.FC = () => {
   };
 
   const handleLoadingMore = () => {
+    console.log('handleLoadingMore called: ' + page);
     setPage((prevPage: number) => prevPage + 1);
   };
 
@@ -69,30 +71,30 @@ const ArticalList: React.FC = () => {
   };
   console.log('error: ' + error);
   console.log('currentArticalesLen: ' + articalesContext.articles.length);
-
+  const showError = error && !loading && !refreshing;
+  console.log(' showError >> ' + showError);
   return (
     <>
-      <FlatList
-        data={articalesContext.articles}
-        renderItem={({item}) => <ArticalItem artical={item} />}
-        keyExtractor={index =>
-          `{${Math.random().toString()}${new Date().toISOString()}}`
-        }
-        onEndReached={handleLoadingMore}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={renderFooter}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            colors={['#9Bd35A', '#689F38']}
-            progressBackgroundColor="#fff"
-          />
-        }
-      />
-
-      {error && !loading && !refreshing && (
-        <ErrorView errorMessage={error} onPress={handleRefresh} />
+      {showError && <ErrorView errorMessage={error} onPress={handleRefresh} />}
+      {!showError && (
+        <FlatList
+          data={articalesContext.filtredArticles}
+          renderItem={({item}) => <ArticalItem artical={item} />}
+          keyExtractor={() =>
+            `{${Math.random().toString()}${new Date().toISOString()}}`
+          }
+          onEndReached={handleLoadingMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={['#9Bd35A', '#689F38']}
+              progressBackgroundColor="#fff"
+            />
+          }
+        />
       )}
     </>
   );

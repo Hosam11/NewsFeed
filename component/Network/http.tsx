@@ -3,7 +3,7 @@ import {Artical} from '../../models/Artical';
 
 // https://newsapi.org/v2/everything?q=google&apiKey=d9ce33babd9e4d7eb85815d7c3a84f6c&page=1&pageSize=50
 
-// const _apiKey = 'b5b81d395dd145fda65c188d3f79c294';
+const _apiKey = 'b5b81d395dd145fda65c188d3f79c294';
 
 const api = 'https://newsapi.org/v2/everything?q=google';
 const postmanApi =
@@ -11,13 +11,12 @@ const postmanApi =
 
 export const fetchNews = async (pageNumber: number) => {
   console.log('pageNumber: ' + pageNumber);
-  const url = `${postmanApi}?page=${pageNumber}`;
-  console.log(url);
+  if (pageNumber > 8) throw new Error('Page number increment rapidlly');
+  // const url = `${postmanApi}?page=${pageNumber}`;
+  const url = `${api}&apiKey=${_apiKey}&page=${pageNumber}`;
+  console.log('fetchNews() >> url: ' + url);
 
-  const response = await axios.get(
-    // `${api}&apiKey=${_apiKey}&page=${pageNumber}`,
-    url,
-  );
+  const response = await axios.get(url);
   console.log('status: ' + response.status);
 
   if (!response.status) {
@@ -39,7 +38,7 @@ export const fetchNews = async (pageNumber: number) => {
         ),
     );
   console.log(
-    'articals.length: with page: ' + pageNumber + ' - ' + articals.length,
+    `fetchNews() >> page: ${pageNumber} articals.length: ${articals.length}`,
   );
 
   return articals;
