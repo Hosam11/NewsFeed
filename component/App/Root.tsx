@@ -3,20 +3,22 @@ import {getUserInfo, userInfoKey} from '../Storage/Storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {navigations} from '../../Util/utils';
-import NewsScreen from '../News/NewsScreen';
+import NewsScreen from '../News/NewsScreen/NewsScreen';
 import SettingScreen from '../Settings/SettingScreen';
 import UserInfoScreen from '../User/UserInfoScreen';
 import Loading from '../UI/Loading';
+import NewsDetailsScreen from '../News/NewsDetailsScreen/NewsDetailsScreen';
+import { RootStackParamList } from '../../Util/types';
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={navigations.newsScreen}
+        name="NewsScreen"
         component={NewsScreen}
         options={{
           headerLeft: () => null,
@@ -24,7 +26,7 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={navigations.settingScreen}
+        name="SettingScreen"
         component={SettingScreen}
         options={{
           headerLeft: () => null,
@@ -53,7 +55,7 @@ const Root: React.FC = () => {
       <Stack.Navigator>
         {firstTime && (
           <Stack.Screen
-            name={navigations.userInfoScreen}
+            name="UserInfoScreen"
             component={UserInfoScreen}
             options={{
               title: 'User information',
@@ -61,12 +63,13 @@ const Root: React.FC = () => {
           />
         )}
         <Stack.Screen
-          name={navigations.bottomTabScreen}
+          name="BottomNavigator"
           component={BottomNavigator}
           options={{
             headerShown: false,
           }}
         />
+        <Stack.Screen name="NewsDetailsScreen" component={NewsDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

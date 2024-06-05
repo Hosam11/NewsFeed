@@ -1,8 +1,8 @@
 import {KeyboardAvoidingView, StyleSheet, View} from 'react-native';
 
-import ArticalList from './ArticalList';
-import {ArticlesProvider} from '../../store/articals-context';
-import SearchComponent from './SearchComponent';
+import ArticalList from './ArticleList';
+import {ArticlesProvider} from '../../../store/articals-context';
+import SearchComponent from '../SearchComponent';
 
 const NewsScreen: React.FC = () => {
   return (

@@ -10,10 +10,11 @@ const postmanApi =
   'https://5851a8e1-1266-4e1f-b678-a8a9edce080e.mock.pstmn.io/news-api';
 
 export const fetchNews = async (pageNumber: number) => {
-  console.log('pageNumber: ' + pageNumber);
-  if (pageNumber > 8) throw new Error('Page number increment rapidlly');
-  // const url = `${postmanApi}?page=${pageNumber}`;
-  const url = `${api}&apiKey=${_apiKey}&page=${pageNumber}`;
+  console.log('fetchNews() pageNumber: ' + pageNumber);
+  // TODO: remove it when finihed
+  // if (pageNumber > 8) throw new Error('Page number increment rapidlly');
+  const url = `${postmanApi}?page=${pageNumber}`;
+  // const url = `${api}&apiKey=${_apiKey}&page=${pageNumber}`;
   console.log('fetchNews() >> url: ' + url);
 
   const response = await axios.get(url);
@@ -22,6 +23,7 @@ export const fetchNews = async (pageNumber: number) => {
   if (!response.status) {
     throw new Error('Something went wrong!');
   }
+
   const articals: Artical[] = response.data.articles
     .filter((artical: Artical) => artical.title !== `[Removed]`)
     .map(
@@ -32,7 +34,7 @@ export const fetchNews = async (pageNumber: number) => {
           artical.title,
           artical.description,
           artical.url,
-          artical.urlToImage,
+          artical.urlToImage ?? 'https://via.placeholder.com/150',
           artical.publishedAt,
           artical.content,
         ),

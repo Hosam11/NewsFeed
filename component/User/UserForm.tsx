@@ -9,32 +9,12 @@ import {UserInfo} from '../../models/UserInfo';
 import {useNavigation, ParamListBase} from '@react-navigation/native';
 import {navigations} from '../../Util/utils';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-export type GenderType = {label: string; value: string} | null;
+import {FormDataType, GenderType, RootStackParamList} from '../../Util/types';
 
 const genderOptions = [
   {label: 'Male', value: 'male'},
   {label: 'Female', value: 'female'},
 ];
-
-type FormDataType = {
-  fName: {
-    value: string;
-    isValid: boolean;
-  };
-  phoneNumber: {
-    value: string;
-    isValid: boolean;
-  };
-  gender: {
-    value: GenderType;
-    isValid: boolean;
-  };
-  bDate: {
-    value: Date;
-    isValid: boolean;
-  };
-};
 
 const formDataKeys = {
   fName: 'fName',
@@ -47,7 +27,8 @@ const phoneRegex = /^[0-9]{11}$/;
 
 const UserForm: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
+  const navigation: NativeStackNavigationProp<RootStackParamList> =
+    useNavigation();
 
   const [formData, setFormData] = useState<FormDataType>({
     fName: {value: '', isValid: false},
@@ -111,7 +92,7 @@ const UserForm: React.FC = () => {
         formData.bDate.value,
       ),
     );
-    navigation.replace(navigations.bottomTabScreen);
+    navigation.replace('BottomNavigator');
   };
 
   console.log('isFormValid: ' + isFormValid);

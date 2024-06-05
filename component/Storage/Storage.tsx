@@ -6,6 +6,7 @@ export const userInfoKey = 'userInfoKey';
 
 const storage = new Storage({
   storageBackend: AsyncStorage,
+  defaultExpires: null,
 });
 
 export const saveUserInfo = async (key: string, user: UserInfo) => {

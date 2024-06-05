@@ -1,19 +1,20 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Artical} from '../../models/Artical';
+import {Artical} from '../../../models/Artical';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../Util/types';
 
-const ArticalItem: React.FC<{artical: Artical}> = ({artical}) => {
-  const validImageUrl = artical.urlToImage
-    ? artical.urlToImage
-    : 'https://via.placeholder.com/150';
-
+const ArticalItem: React.FC<{article: Artical}> = ({article}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <Pressable
       onPress={() => {
-        console.log('artical: ' + JSON.stringify(artical));
+        navigation.navigate('NewsDetailsScreen', {article});
       }}>
       <View style={styles.card}>
-        <Image source={{uri: validImageUrl}} style={styles.image} />
-        <Text style={styles.title}>{artical.title}</Text>
+        <Image source={{uri: article.urlToImage}} style={styles.image} />
+        <Text style={styles.title}>{article.title}</Text>
       </View>
     </Pressable>
   );

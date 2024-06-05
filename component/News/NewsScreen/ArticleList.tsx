@@ -1,16 +1,9 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  StyleSheet,
-  View,
-} from 'react-native';
-import {fetchNews} from '../Network/http';
-import {Artical} from '../../models/Artical';
-import ArticalItem from './ArticalItem';
-import ErrorView from '../UI/ErrorView';
-import {ArticlesContext} from '../../store/articals-context';
+import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {fetchNews} from '../../Network/http';
+import ArticalItem from './ArticleItem';
+import ErrorView from '../../UI/ErrorView';
+import {ArticlesContext} from '../../../store/articals-context';
 
 const ArticalList: React.FC = () => {
   const articalesContext = useContext(ArticlesContext);
@@ -79,7 +72,7 @@ const ArticalList: React.FC = () => {
       {!showError && (
         <FlatList
           data={articalesContext.filtredArticles}
-          renderItem={({item}) => <ArticalItem artical={item} />}
+          renderItem={({item}) => <ArticalItem article={item} />}
           keyExtractor={() =>
             `{${Math.random().toString()}${new Date().toISOString()}}`
           }
