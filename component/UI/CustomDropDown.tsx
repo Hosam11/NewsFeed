@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {GenderType} from '../User/UserForm';
-import ErrorView from './ErrorView';
+import InputErrorView from './InputErrorView';
 
 const CustomDropDown: React.FC<{
   itemtOptions: {label: string; value: string}[];
@@ -22,7 +22,7 @@ const CustomDropDown: React.FC<{
         value={props.gender}
         onChange={props.onChange}
       />
-      <ErrorView errorText={props.errorText} />
+      <InputErrorView errorText={props.errorText} />
     </View>
   );
 };

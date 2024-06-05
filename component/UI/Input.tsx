@@ -5,7 +5,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import ErrorView from './ErrorView';
+import InputErrorView from './InputErrorView';
 
 const Input: React.FC<{
   placeholder: string;
@@ -21,7 +21,7 @@ const Input: React.FC<{
         keyboardType={props.keyboardType}
         onChangeText={props.onChange}
       />
-      <ErrorView errorText={props.errorText} />
+      <InputErrorView errorText={props.errorText} />
     </View>
   );
 };

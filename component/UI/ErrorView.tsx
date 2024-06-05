@@ -1,20 +1,31 @@
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, Button} from 'react-native';
 
-const ErrorView: React.FC<{errorText?: string}> = props => {
+const ErrorView: React.FC<{errorMessage: string; onPress?: () => void}> = ({
+  errorMessage,
+  onPress,
+}) => {
   return (
-    <View style={styles.errorView}>
-      {props.errorText && <Text style={styles.error}>{props.errorText}</Text>}
+    <View style={styles.container}>
+      <Text style={styles.errorText}>{errorMessage}</Text>
+      <Button title="Retry" onPress={onPress} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  error: {
-    color: 'red',
-    fontSize: 16,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
-  errorView: {
-    paddingVertical: 12,
+  errorText: {
+    color: 'red',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginHorizontal: 20,
   },
 });
 

@@ -1,5 +1,4 @@
 import {useLayoutEffect, useState} from 'react';
-import {ActivityIndicator, View} from 'react-native';
 import {getUserInfo, userInfoKey} from '../Storage/Storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -21,9 +20,17 @@ const BottomNavigator = () => {
         component={NewsScreen}
         options={{
           headerLeft: () => null,
+          tabBarLabel: 'News',
         }}
       />
-      <Tab.Screen name={navigations.settingScreen} component={SettingScreen} />
+      <Tab.Screen
+        name={navigations.settingScreen}
+        component={SettingScreen}
+        options={{
+          headerLeft: () => null,
+          tabBarLabel: 'Settings',
+        }}
+      />
     </Tab.Navigator>
   );
 };

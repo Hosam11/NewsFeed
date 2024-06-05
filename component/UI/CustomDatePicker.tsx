@@ -3,7 +3,7 @@ import {Button, Pressable, StyleSheet, Text, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import language from '../Strings';
 import {formatDate} from '../../Util/utils';
-import ErrorView from './ErrorView';
+import InputErrorView from './InputErrorView';
 
 const CustomDatePicker: React.FC<{
   date: Date;
@@ -18,7 +18,7 @@ const CustomDatePicker: React.FC<{
       <Text style={styles.dateText}>
         {`${language.bDate}: ${formatDate(props.date)}`}
       </Text>
-      <ErrorView errorText={props.errorText} />
+      <InputErrorView errorText={props.errorText} />
       <DatePicker
         modal
         open={props.open}
