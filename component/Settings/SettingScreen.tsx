@@ -1,11 +1,16 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 import {getUserInfo} from '../Storage/Storage';
 import {UserInfo} from '../../models/UserInfo';
 import {formatDate} from '../../Util/utils';
+import {ThemeContext, themes} from '../../store/theme-context';
+import ThemeText from '../UI/ThemeText';
+import ThemeView from '../UI/ThemeView';
 
 const SettingScreen: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
+  const themeContext = useContext(ThemeContext);
+  const [isDarkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     console.log('SettingScreen useEffect');
@@ -14,14 +19,21 @@ const SettingScreen: React.FC = () => {
       if (user instanceof UserInfo) {
         setUserInfo(user);
       }
+      setDarkMode(themeContext.theme === themes.dark);
     };
     getUserData();
   }, []);
 
+  const toggleTheme = (value: boolean) => {
+    themeContext.toggleTheme();
+    setDarkMode(value);
+    console.log('current theme: ' + themeContext.theme);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>First Name</Text>
-      <Text style={styles.value}>{userInfo?.fName}</Text>
+    <ThemeView style={styles.container}>
+      <ThemeText style={styles.label}>First Name</ThemeText>
+      <ThemeText style={styles.value}>{userInfo?.fName}</ThemeText>
 
       <Text style={styles.label}>Phone Number</Text>
       <Text style={styles.value}>{userInfo?.phoneNumber}</Text>
@@ -41,9 +53,9 @@ const SettingScreen: React.FC = () => {
 
       <View style={styles.toggleContainer}>
         <Text style={styles.toggleLabel}>Theme</Text>
-        <Switch value={false} onValueChange={() => {}} />
+        <Switch value={isDarkMode} onValueChange={toggleTheme} />
       </View>
-    </View>
+    </ThemeView>
   );
 };
 

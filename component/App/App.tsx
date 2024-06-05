@@ -7,13 +7,16 @@
 
 import {SafeAreaView, StatusBar, StyleSheet, Text} from 'react-native';
 import Root from './Root';
+import MyThemeProvider from '../../store/theme-context';
 
 const App: React.FC = () => {
   return (
-    <SafeAreaView style={styles.contaier}>
-      <StatusBar />
-      <Root />
-    </SafeAreaView>
+    <MyThemeProvider>
+      <SafeAreaView style={styles.contaier}>
+        <StatusBar />
+        <Root />
+      </SafeAreaView>
+    </MyThemeProvider>
   );
 };
 

@@ -1,5 +1,5 @@
 import {useLayoutEffect, useState} from 'react';
-import {getUserInfo, userInfoKey} from '../Storage/Storage';
+import {getUserInfo} from '../Storage/Storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -8,8 +8,7 @@ import SettingScreen from '../Settings/SettingScreen';
 import UserInfoScreen from '../User/UserInfoScreen';
 import Loading from '../UI/Loading';
 import NewsDetailsScreen from '../News/NewsDetailsScreen/NewsDetailsScreen';
-import { RootStackParamList } from '../../Util/types';
-
+import {RootStackParamList} from '../../Util/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -42,7 +41,7 @@ const Root: React.FC = () => {
   const [loading, setLoading] = useState(true);
   useLayoutEffect(() => {
     const checkIfUserExists = async () => {
-      const data = await getUserInfo(userInfoKey);
+      const data = await getUserInfo();
       const isFirstTime = data === false;
       setFirstTime(isFirstTime);
       setLoading(false);
