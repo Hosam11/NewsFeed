@@ -1,7 +1,10 @@
 import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import InputErrorView from './InputErrorView';
-import { GenderType } from '../../Util/types';
+import {GenderType} from '../../Util/types';
+import {useContext} from 'react';
+import {ThemeContext} from '../../store/theme-context';
+import {colors} from './Colors';
 
 const CustomDropDown: React.FC<{
   itemtOptions: {label: string; value: string}[];
@@ -10,16 +13,34 @@ const CustomDropDown: React.FC<{
   gender?: GenderType;
   onChange: (item: {label: string; value: string}) => void;
 }> = props => {
+  const themeContext = useContext(ThemeContext);
+  const textColor = themeContext.isDarkTheme()
+    ? colors.dark.title
+    : colors.light.title;
+
+  const valueColor = themeContext.isDarkTheme()
+    ? colors.dark.value
+    : colors.light.value;
+
+  const backgroundColor = themeContext.isDarkTheme()
+    ? colors.dark.background
+    : colors.light.background;
   return (
     <View>
       <Dropdown
-        style={styles.dropdown}
+        style={[styles.dropdown, {borderColor: textColor}]}
         data={props.itemtOptions}
         labelField="label"
         valueField="value"
         placeholder={props.placeholder}
         value={props.gender}
         onChange={props.onChange}
+        iconColor={valueColor}
+        selectedTextStyle={{color: textColor, backgroundColor: backgroundColor}}
+        placeholderStyle={{color: valueColor}}
+        itemTextStyle={{color: valueColor}}
+        itemContainerStyle={{backgroundColor: backgroundColor}}
+        containerStyle={{backgroundColor: backgroundColor}}
       />
       <InputErrorView errorText={props.errorText} />
     </View>
@@ -29,16 +50,12 @@ const CustomDropDown: React.FC<{
 const styles = StyleSheet.create({
   dropdown: {
     height: 50,
-    borderColor: 'grey',
     borderWidth: 1.5,
     paddingHorizontal: 8,
-    backgroundColor: 'white',
     fontSize: 18,
-    color: 'black',
   },
 
   textItem: {
-    color: 'black', // Set your desired text color here
     fontSize: 18,
     padding: 16,
   },

@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import UserForm from './UserForm';
 import language from '../Strings';
+import ThemeText from '../UI/ThemeText';
 
 const UserInfoScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{language.addYourData}</Text>
+      <ThemeText style={styles.title}>{language.addYourData}</ThemeText>
       <UserForm />
     </View>
   );
@@ -13,7 +14,6 @@ const UserInfoScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'purple',
     flex: 1,
   },
   title: {

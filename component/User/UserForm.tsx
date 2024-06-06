@@ -3,13 +3,14 @@ import Input from '../UI/Input';
 import language from '../Strings';
 import CustomDropDown from '../UI/CustomDropDown';
 import CustomDatePicker from '../UI/CustomDatePicker';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {saveUserInfo} from '../Storage/Storage';
 import {UserInfo} from '../../models/UserInfo';
-import {useNavigation, ParamListBase} from '@react-navigation/native';
-import {navigations} from '../../Util/utils';
+import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {FormDataType, GenderType, RootStackParamList} from '../../Util/types';
+import {ThemeContext} from '../../store/theme-context';
+import {colors} from '../UI/Colors';
 
 const genderOptions = [
   {label: 'Male', value: 'male'},
@@ -36,6 +37,7 @@ const UserForm: React.FC = () => {
     gender: {value: null, isValid: false},
     bDate: {value: new Date(), isValid: false},
   });
+  const themeContext = useContext(ThemeContext);
 
   const {fName, phoneNumber, gender, bDate} = formData;
   const isFormValid =
@@ -130,6 +132,11 @@ const UserForm: React.FC = () => {
           title={language.submit}
           onPress={sumbitHandler}
           disabled={!isFormValid}
+          color={
+            themeContext.isDarkTheme()
+              ? colors.dark.header
+              : colors.light.header
+          }
         />
       </View>
     </View>

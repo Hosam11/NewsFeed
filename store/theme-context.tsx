@@ -6,9 +6,14 @@ export const themes = {
   dark: 'dark',
 };
 
-export const ThemeContext = createContext({
+export const ThemeContext = createContext<{
+  theme: string;
+  toggleTheme: () => void;
+  isDarkTheme: () => boolean;
+}>({
   theme: themes.light,
   toggleTheme: () => {},
+  isDarkTheme: () => false,
 });
 
 const MyThemeProvider: React.FC<PropsWithChildren> = ({children}) => {
@@ -27,12 +32,14 @@ const MyThemeProvider: React.FC<PropsWithChildren> = ({children}) => {
 
   const toggleTheme = () => {
     const newTheme = theme === themes.light ? themes.dark : themes.light;
+    console.log('newTheme: ' + newTheme);
     setTheme(newTheme);
     saveTheme(newTheme);
   };
 
+  const isDarkTheme = () => theme === themes.dark;
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeContext.Provider value={{theme, toggleTheme, isDarkTheme}}>
       {children}
     </ThemeContext.Provider>
   );

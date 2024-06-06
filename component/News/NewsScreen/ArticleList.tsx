@@ -1,9 +1,10 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {ActivityIndicator, FlatList, RefreshControl, View} from 'react-native';
 import {fetchNews} from '../../Network/http';
 import ArticalItem from './ArticleItem';
 import ErrorView from '../../UI/ErrorView';
 import {ArticlesContext} from '../../../store/articals-context';
+import ThemeView from '../../UI/ThemeView';
 
 const ArticalList: React.FC = () => {
   const articalesContext = useContext(ArticlesContext);

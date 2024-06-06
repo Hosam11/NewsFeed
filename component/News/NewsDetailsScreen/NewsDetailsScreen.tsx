@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import {Props} from '../../../Util/types';
+import ThemeText from '../../UI/ThemeText';
+import {colors} from '../../UI/Colors';
 
 const NewsDetailsScreen: React.FC<Props> = ({route}) => {
   const article = route.params.article;
@@ -8,10 +10,25 @@ const NewsDetailsScreen: React.FC<Props> = ({route}) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Image source={{uri: article.urlToImage}} style={styles.image} />
-        <Text style={styles.title}>{article.title}</Text>
-        <Text style={styles.author}>By {article.author}</Text>
-        <Text style={styles.description}>{article.description}</Text>
-        <Text style={styles.content}>{article.content}</Text>
+        <ThemeText style={styles.title}>{article.title}</ThemeText>
+        <ThemeText
+          style={styles.author}
+          darkColor={colors.dark.value}
+          lightColor={colors.light.value}>
+          By {article.author}
+        </ThemeText>
+        <ThemeText
+          style={styles.description}
+          darkColor={colors.dark.value}
+          lightColor={colors.light.value}>
+          {article.description}
+        </ThemeText>
+        <ThemeText
+          style={styles.content}
+          darkColor={colors.dark.value}
+          lightColor={colors.light.value}>
+          {article.content}
+        </ThemeText>
       </View>
     </ScrollView>
   );

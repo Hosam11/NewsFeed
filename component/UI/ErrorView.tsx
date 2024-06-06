@@ -1,15 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
+import ThemeView from './ThemeView';
+import ThemeText from './ThemeText';
 
 const ErrorView: React.FC<{errorMessage: string; onPress?: () => void}> = ({
   errorMessage,
   onPress,
 }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.errorText}>{errorMessage}</Text>
+    <ThemeView style={styles.container}>
+      <ThemeText style={styles.errorText}>{errorMessage}</ThemeText>
       <Button title="Retry" onPress={onPress} />
-    </View>
+    </ThemeView>
   );
 };
 

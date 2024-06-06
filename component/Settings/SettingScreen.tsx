@@ -6,6 +6,8 @@ import {formatDate} from '../../Util/utils';
 import {ThemeContext, themes} from '../../store/theme-context';
 import ThemeText from '../UI/ThemeText';
 import ThemeView from '../UI/ThemeView';
+import {colors} from '../UI/Colors';
+import Toggle from '../UI/Toggle';
 
 const SettingScreen: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
@@ -27,34 +29,53 @@ const SettingScreen: React.FC = () => {
   const toggleTheme = (value: boolean) => {
     themeContext.toggleTheme();
     setDarkMode(value);
-    console.log('current theme: ' + themeContext.theme);
   };
 
   return (
     <ThemeView style={styles.container}>
       <ThemeText style={styles.label}>First Name</ThemeText>
-      <ThemeText style={styles.value}>{userInfo?.fName}</ThemeText>
+      <ThemeText
+        style={styles.value}
+        darkColor={colors.dark.value}
+        lightColor={colors.light.value}>
+        {userInfo?.fName}
+      </ThemeText>
 
-      <Text style={styles.label}>Phone Number</Text>
-      <Text style={styles.value}>{userInfo?.phoneNumber}</Text>
+      <ThemeText style={styles.label}>Phone Number</ThemeText>
+      <ThemeText
+        style={styles.value}
+        darkColor={colors.dark.value}
+        lightColor={colors.light.value}>
+        {userInfo?.phoneNumber}
+      </ThemeText>
 
-      <Text style={styles.label}>Gender</Text>
-      <Text style={styles.value}>{userInfo?.gender}</Text>
+      <ThemeText style={styles.label}>Gender</ThemeText>
+      <ThemeText
+        style={styles.value}
+        darkColor={colors.dark.value}
+        lightColor={colors.light.value}>
+        {userInfo?.gender}
+      </ThemeText>
 
-      <Text style={styles.label}>Birth Date</Text>
-      <Text style={styles.value}>
+      <ThemeText style={styles.label}>Birth Date</ThemeText>
+      <ThemeText
+        style={styles.value}
+        darkColor={colors.dark.value}
+        lightColor={colors.light.value}>
         {formatDate(userInfo?.bDate ?? new Date())}
-      </Text>
+      </ThemeText>
 
       <View style={styles.toggleContainer}>
-        <Text style={styles.toggleLabel}>Language</Text>
+        <ThemeText style={styles.toggleLabel}>Language</ThemeText>
         <Switch value={true} onValueChange={() => {}} />
       </View>
 
-      <View style={styles.toggleContainer}>
-        <Text style={styles.toggleLabel}>Theme</Text>
-        <Switch value={isDarkMode} onValueChange={toggleTheme} />
-      </View>
+      <Toggle
+        onValueChange={toggleTheme}
+        label={themeContext.theme}
+        value={isDarkMode}>
+        Theme
+      </Toggle>
     </ThemeView>
   );
 };
@@ -68,12 +89,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     marginVertical: 10,
-    color: '#000',
   },
   value: {
     fontSize: 16,
     marginBottom: 20,
-    color: '#555',
   },
   toggleContainer: {
     flexDirection: 'row',
