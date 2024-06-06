@@ -1,12 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import UserForm from './UserForm';
-import language from '../Strings';
 import ThemeText from '../UI/ThemeText';
+import {getLocalizationText} from '../../Util/lang';
 
 const UserInfoScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <ThemeText style={styles.title}>{language.addYourData}</ThemeText>
+      <ThemeText style={styles.title}>
+        {getLocalizationText('addYourData')}
+      </ThemeText>
       <UserForm />
     </View>
   );

@@ -1,6 +1,5 @@
 import {Button, StyleSheet, View} from 'react-native';
 import Input from '../UI/Input';
-import language from '../Strings';
 import CustomDropDown from '../UI/CustomDropDown';
 import CustomDatePicker from '../UI/CustomDatePicker';
 import {useContext, useState} from 'react';
@@ -11,11 +10,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {FormDataType, GenderType, RootStackParamList} from '../../Util/types';
 import {ThemeContext} from '../../store/theme-context';
 import {colors} from '../UI/Colors';
-
-const genderOptions = [
-  {label: 'Male', value: 'male'},
-  {label: 'Female', value: 'female'},
-];
+import {getLocalizationText} from '../../Util/lang';
 
 const formDataKeys = {
   fName: 'fName',
@@ -38,6 +33,11 @@ const UserForm: React.FC = () => {
     bDate: {value: new Date(), isValid: false},
   });
   const themeContext = useContext(ThemeContext);
+
+  const genderOptions = [
+    {label: getLocalizationText('male'), value: 'male'},
+    {label: getLocalizationText('female'), value: 'female'},
+  ];
 
   const {fName, phoneNumber, gender, bDate} = formData;
   const isFormValid =
@@ -100,24 +100,34 @@ const UserForm: React.FC = () => {
   return (
     <View style={styles.form}>
       <Input
-        placeholder={language.fName}
+        placeholder={getLocalizationText('fName')}
         onChange={fNameHandler}
-        errorText={formData.fName.isValid ? undefined : language.invalidName}
+        errorText={
+          formData.fName.isValid
+            ? undefined
+            : getLocalizationText('invalidName')
+        }
       />
       <Input
-        placeholder={language.phoneNumber}
+        placeholder={getLocalizationText('phoneNumber')}
         keyboardType="phone-pad"
         onChange={phoneNumberHandler}
         errorText={
-          formData.phoneNumber.isValid ? undefined : language.invalidPhone
+          formData.phoneNumber.isValid
+            ? undefined
+            : getLocalizationText('invalidPhone')
         }
       />
       <CustomDropDown
         itemtOptions={genderOptions}
-        placeholder={language.selectGender}
+        placeholder={getLocalizationText('selectGender')}
         gender={formData.gender.value}
         onChange={genderHandler}
-        errorText={formData.gender.isValid ? undefined : language.invalidGender}
+        errorText={
+          formData.gender.isValid
+            ? undefined
+            : getLocalizationText('invalidGender')
+        }
       />
       <CustomDatePicker
         date={formData.bDate.value}
@@ -125,11 +135,15 @@ const UserForm: React.FC = () => {
         onCancel={() => setOpen(false)}
         open={open}
         onConfirm={bDateHandler}
-        errorText={formData.bDate.isValid ? undefined : language.invalidDate}
+        errorText={
+          formData.bDate.isValid
+            ? undefined
+            : getLocalizationText('invalidDate')
+        }
       />
       <View style={styles.submitButton}>
         <Button
-          title={language.submit}
+          title={getLocalizationText('submit')}
           onPress={sumbitHandler}
           disabled={!isFormValid}
           color={

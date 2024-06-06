@@ -4,7 +4,6 @@ import {fetchNews} from '../../Network/http';
 import ArticalItem from './ArticleItem';
 import ErrorView from '../../UI/ErrorView';
 import {ArticlesContext} from '../../../store/articals-context';
-import ThemeView from '../../UI/ThemeView';
 
 const ArticalList: React.FC = () => {
   const articalesContext = useContext(ArticlesContext);
@@ -42,7 +41,6 @@ const ArticalList: React.FC = () => {
   const handleRefresh = async () => {
     setRefreshing(true);
     const newArticals = await fetchData(1);
-    // setArticals(newArticals);
     articalesContext.setNewArticles(newArticals);
 
     setRefreshing(false);

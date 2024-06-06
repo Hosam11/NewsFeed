@@ -1,27 +1,17 @@
-import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserInfo} from '../../models/UserInfo';
 
 const userInfoKey = 'userInfoKey';
 const themeKey = 'theme';
-
-const storage = new Storage({
-  storageBackend: AsyncStorage,
-  defaultExpires: null,
-});
+const localizationKey = 'localization';
 
 export const saveUserInfo = async (user: UserInfo) => {
-  await storage.save({
-    key: userInfoKey,
-    data: user,
-  });
+  await AsyncStorage.setItem(userInfoKey, JSON.stringify(user));
 };
 
 export const getUserInfo = async (): Promise<UserInfo | boolean> => {
   try {
-    const data = await storage.load({
-      key: userInfoKey,
-    });
+    const data = JSON.parse((await AsyncStorage.getItem(userInfoKey)) || '');
     return new UserInfo(
       data.fName,
       data.phoneNumber,
@@ -35,18 +25,26 @@ export const getUserInfo = async (): Promise<UserInfo | boolean> => {
 };
 
 export const saveTheme = async (theme: string) => {
-  await storage.save({
-    key: themeKey,
-    data: theme,
-  });
+  await AsyncStorage.setItem(themeKey, theme);
 };
 
 export const getTheme = async () => {
   try {
-    return await storage.load({
-      key: themeKey,
-    });
+    const data = await AsyncStorage.getItem(themeKey);
+    return data;
   } catch (e) {
     console.error('Error retrieving theme from storage:', e);
+  }
+};
+
+export const saveLocalizationCode = async (localization: string) => {
+  await AsyncStorage.setItem(localizationKey, localization);
+};
+
+export const getLocalizationCode = async () => {
+  try {
+    return await AsyncStorage.getItem(localizationKey);
+  } catch (e) {
+    console.error('Error retrieving LocalizationCode from storage:', e);
   }
 };

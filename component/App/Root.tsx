@@ -1,6 +1,6 @@
-import {useContext, useLayoutEffect, useState} from 'react';
+import {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import {getUserInfo} from '../Storage/Storage';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, LinkingOptions} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import NewsScreen from '../News/NewsScreen/NewsScreen';
@@ -12,6 +12,8 @@ import {RootStackParamList} from '../../Util/types';
 import {ThemeContext} from '../../store/theme-context';
 import {colors} from '../UI/Colors';
 import {StatusBar} from 'react-native';
+import {getLocalizationText} from '../../Util/lang';
+import {LanguageContext} from '../../store/language-context';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -51,7 +53,8 @@ const BottomNavigator: React.FC = () => {
         component={NewsScreen}
         options={{
           headerLeft: () => null,
-          tabBarLabel: 'News',
+          tabBarLabel: getLocalizationText('news'),
+          title: getLocalizationText('news'),
         }}
       />
       <Tab.Screen
@@ -59,7 +62,8 @@ const BottomNavigator: React.FC = () => {
         component={SettingScreen}
         options={{
           headerLeft: () => null,
-          tabBarLabel: 'Settings',
+          tabBarLabel: getLocalizationText('settings'),
+          title: getLocalizationText('settings'),
         }}
       />
     </Tab.Navigator>
@@ -70,8 +74,8 @@ const Root: React.FC = () => {
   const [firstTime, setFirstTime] = useState(false);
   const [loading, setLoading] = useState(true);
   const themeContext = useContext(ThemeContext);
-
-  useLayoutEffect(() => {
+  const localicationContext = useContext(LanguageContext);
+  useEffect(() => {
     const checkIfUserExists = async () => {
       const data = await getUserInfo();
       const isFirstTime = data === false;
@@ -85,10 +89,23 @@ const Root: React.FC = () => {
     ? colors.dark.header
     : colors.light.header;
 
+  const linking: LinkingOptions<RootStackParamList> = {
+    prefixes: ['https://newsfeed.com'],
+    config: {
+      screens: {
+        NewsDetailsScreen: {
+          path: 'details/:title',
+          parse: {
+            title: (title: string) => title,
+          },
+        },
+      },
+    },
+  };
   const mainView = (
     <>
       <StatusBar backgroundColor={headerColor} />
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <Stack.Navigator
           screenOptions={{
             headerStyle: {backgroundColor: headerColor},
@@ -106,7 +123,7 @@ const Root: React.FC = () => {
               name="UserInfoScreen"
               component={UserInfoScreen}
               options={{
-                title: 'User information',
+                title: localicationContext.localization['userInfo'],
               }}
             />
           )}
@@ -120,6 +137,9 @@ const Root: React.FC = () => {
           <Stack.Screen
             name="NewsDetailsScreen"
             component={NewsDetailsScreen}
+            options={{
+              title: getLocalizationText('newsDetails'),
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

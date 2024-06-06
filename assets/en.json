@@ -1,0 +1,27 @@
+{
+  "addYourData": "Add your Data",
+  "phoneNumber": "Phone number",
+  "fName": "Frist Name",
+  "selectGender": "Select gender",
+  "bDate": "Brith date",
+  "submit": "Submit",
+  "gender": "Gender",
+  "invalidName": "Enter more than 5 character",
+  "invalidPhone": "Phone must be 11 numbers",
+  "invalidGender": "Please enter a valid gender",
+  "invalidDate": "Data must be greater than 10 year",
+  "result": "Result",
+  "search": "Search...",
+  "selectLanguage": "Select language",
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "settings": "Settings",
+  "news": "News",
+  "retry": "Retry",
+  "newsDetails": "Artical details",
+  "userInfo": "User Information",
+  "male":"Male",
+  "female":"Female"
+
+}

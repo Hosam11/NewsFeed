@@ -28,7 +28,7 @@ const Toggle: React.FC<
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 10,
   },
   toggleContainer: {
     flexDirection: 'row',

@@ -1,11 +1,5 @@
-import {Children, PropsWithChildren, useContext} from 'react';
-import {
-  ColorValue,
-  StyleSheet,
-  StyleSheetProperties,
-  Text,
-  TextProps,
-} from 'react-native';
+import {PropsWithChildren, useContext} from 'react';
+import {Text} from 'react-native';
 import {ThemeContext, themes} from '../../store/theme-context';
 import {ThemeViewProps} from '../../Util/types';
 import {colors} from './Colors';

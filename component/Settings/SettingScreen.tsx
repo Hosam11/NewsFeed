@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
-import {StyleSheet, Switch, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {getUserInfo} from '../Storage/Storage';
 import {UserInfo} from '../../models/UserInfo';
 import {formatDate} from '../../Util/utils';
@@ -8,6 +8,8 @@ import ThemeText from '../UI/ThemeText';
 import ThemeView from '../UI/ThemeView';
 import {colors} from '../UI/Colors';
 import Toggle from '../UI/Toggle';
+import LanguageSelection from './Language';
+import {getLocalizationText} from '../../Util/lang';
 
 const SettingScreen: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>();
@@ -33,7 +35,7 @@ const SettingScreen: React.FC = () => {
 
   return (
     <ThemeView style={styles.container}>
-      <ThemeText style={styles.label}>First Name</ThemeText>
+      <ThemeText style={styles.label}>{getLocalizationText('fName')}</ThemeText>
       <ThemeText
         style={styles.value}
         darkColor={colors.dark.value}
@@ -41,7 +43,9 @@ const SettingScreen: React.FC = () => {
         {userInfo?.fName}
       </ThemeText>
 
-      <ThemeText style={styles.label}>Phone Number</ThemeText>
+      <ThemeText style={styles.label}>
+        {getLocalizationText('phoneNumber')}
+      </ThemeText>
       <ThemeText
         style={styles.value}
         darkColor={colors.dark.value}
@@ -49,7 +53,9 @@ const SettingScreen: React.FC = () => {
         {userInfo?.phoneNumber}
       </ThemeText>
 
-      <ThemeText style={styles.label}>Gender</ThemeText>
+      <ThemeText style={styles.label}>
+        {getLocalizationText('gender')}
+      </ThemeText>
       <ThemeText
         style={styles.value}
         darkColor={colors.dark.value}
@@ -57,7 +63,9 @@ const SettingScreen: React.FC = () => {
         {userInfo?.gender}
       </ThemeText>
 
-      <ThemeText style={styles.label}>Birth Date</ThemeText>
+      <ThemeText style={styles.label}>
+        {getLocalizationText('gender')}
+      </ThemeText>
       <ThemeText
         style={styles.value}
         darkColor={colors.dark.value}
@@ -65,16 +73,17 @@ const SettingScreen: React.FC = () => {
         {formatDate(userInfo?.bDate ?? new Date())}
       </ThemeText>
 
-      <View style={styles.toggleContainer}>
-        <ThemeText style={styles.toggleLabel}>Language</ThemeText>
-        <Switch value={true} onValueChange={() => {}} />
-      </View>
+      <LanguageSelection />
 
       <Toggle
         onValueChange={toggleTheme}
-        label={themeContext.theme}
+        label={
+          themeContext.isDarkTheme()
+            ? getLocalizationText('dark')
+            : getLocalizationText('light')
+        }
         value={isDarkMode}>
-        Theme
+        {getLocalizationText('theme')}
       </Toggle>
     </ThemeView>
   );

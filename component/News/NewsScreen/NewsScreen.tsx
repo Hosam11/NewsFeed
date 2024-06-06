@@ -1,4 +1,4 @@
-import {KeyboardAvoidingView, StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import ArticalList from './ArticleList';
 import {ArticlesProvider} from '../../../store/articals-context';

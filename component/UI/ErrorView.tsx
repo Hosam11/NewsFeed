@@ -1,16 +1,26 @@
-import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import React, { useContext } from 'react';
+import {StyleSheet, Button} from 'react-native';
 import ThemeView from './ThemeView';
 import ThemeText from './ThemeText';
+import {getLocalizationText} from '../../Util/lang';
+import {ThemeContext} from '../../store/theme-context';
+import { colors } from './Colors';
 
 const ErrorView: React.FC<{errorMessage: string; onPress?: () => void}> = ({
   errorMessage,
   onPress,
 }) => {
+  const themeContext = useContext(ThemeContext);
   return (
     <ThemeView style={styles.container}>
       <ThemeText style={styles.errorText}>{errorMessage}</ThemeText>
-      <Button title="Retry" onPress={onPress} />
+      <Button
+        title={getLocalizationText('retry')}
+        color={
+          themeContext.isDarkTheme() ? colors.dark.header : colors.light.header
+        }
+        onPress={onPress}
+      />
     </ThemeView>
   );
 };

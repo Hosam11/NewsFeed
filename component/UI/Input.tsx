@@ -1,10 +1,4 @@
-import {
-  KeyboardTypeOptions,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {KeyboardTypeOptions, StyleSheet, TextInput, View} from 'react-native';
 import InputErrorView from './InputErrorView';
 import {useContext} from 'react';
 import {ThemeContext} from '../../store/theme-context';

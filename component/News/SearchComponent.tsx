@@ -1,10 +1,9 @@
 import React, {useContext, useState} from 'react';
 import {TextInput, View, StyleSheet, Text} from 'react-native';
 import {ArticlesContext} from '../../store/articals-context';
-import language from '../Strings';
-import ThemeText from '../UI/ThemeText';
 import {ThemeContext} from '../../store/theme-context';
 import {colors} from '../UI/Colors';
+import {getLocalizationText} from '../../Util/lang';
 
 const SearchComponent = () => {
   const articlesContext = useContext(ArticlesContext);
@@ -25,7 +24,7 @@ const SearchComponent = () => {
               : colors.light.title,
           },
         ]}
-        placeholder={language.search}
+        placeholder={getLocalizationText('search')}
         onChangeText={handleSearch}
         placeholderTextColor={
           themeContext.isDarkTheme() ? colors.dark.title : colors.light.title
